@@ -19,7 +19,16 @@ const limiter = rateLimit({
 
 })
 
-app.use(cors());
+app.use(cors({
+    origin: [
+        'http://localhost:5173',
+        'http://dewebalpha.com',
+        'https://dewebalpha.com',
+        'http://145.223.88.147',
+
+    ],
+    credentials: true,
+}));
 app.use(helmet());
 app.use(express.json());
 app.use(express.urlencoded({extended: false}))
@@ -29,6 +38,10 @@ app.get('/', (req, res)=>{
     res.send("Home Page");
 })
 
+
+app.get('/see', (req, res)=>{
+    res.send("You have seen me ")
+})
 
 app.use('/api', limiter,router);
 
